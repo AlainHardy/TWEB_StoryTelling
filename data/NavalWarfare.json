@@ -1,0 +1,1197 @@
+[{
+	"name": "Attack on Pearl Harbour",
+	"start": "1941-12-7",
+	"end": "1941-12-7",
+	"location": {
+		"latitude": 21.3445072,
+		"longitude": -157.9748912
+	},
+	"data": {
+		"text": "The attack on Pearl Harbor was a surprise military strike by the Imperial Japanese Navy Air Service against the United 'state's naval base at Pearl Harbor, Hawaii Territory, on the morning of December 7, 1941. The attack, also known as the Battle of Pearl Harbor, led to the United ",
+		"jp": {
+			"fleet": [{
+				"CV": {
+					"count": 6
+				}
+			},
+			{
+				"BB": {
+					"count": 2
+				}
+			},
+			{
+				"CA": {
+					"count": 2
+				}
+			},
+			{
+				"CL": {
+					"count": 1
+				}
+			},
+			{
+				"DD": {
+					"count": 9
+				}
+			},
+			{
+				"AO": {
+					"count": 8
+				}
+			},
+			{
+				"SS": {
+					"count": 23
+				}
+			},
+			{
+				"SSM": {
+					"count": 5
+				}
+			},
+			{
+				"Ac": {
+					"count": 414
+				}
+			}],
+			"losess": [{
+				"SSM": {
+					"sunk": {
+						"count": 5
+					}
+				}
+			},
+			{
+				"Ac": {
+					"destroyed": {
+						"count": 29
+					}
+				}
+			},
+			{
+				"Men": {
+					"killed": 64
+				}
+			}]
+		},
+		"us": {
+			"fleet": [{
+				"BB": {
+					"count": 8
+				}
+			},
+			{
+				"CA": {
+					"count": 2
+				}
+			},
+			{
+				"CL": {
+					"count": 6
+				}
+			},
+			{
+				"DD": {
+					"count": 30
+				}
+			},
+			{
+				"SS": {
+					"count": 4
+				}
+			},
+			{
+				"Others": {
+					"count": 50
+				}
+			},
+			{
+				"Ac": {
+					"count": 390
+				}
+			}],
+			"losses": [{
+				"BB": {
+					"sunk": {
+						"count": 4
+					},
+					"damaged": {
+						"count": 4
+					}
+				}
+			},
+			{
+				"AG": {
+					"sunk": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"CM": {
+					"sunk": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"CL": {
+					"damaged": {
+						"count": 3
+					}
+				}
+			},
+			{
+				"DD": {
+					"sunk": {
+						"count": 3
+					}
+				}
+			},
+			{
+				"AR": {
+					"damaged": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"AV": {
+					"damaged": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"YTM": {
+					"damaged": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"Ac": {
+					"destroyed": {
+						"count": 188
+					},
+					"damaged": {
+						"count": 159
+					}
+				}
+			},
+			{
+				"Men": {
+					"killed": {
+						"count": 2335
+					},
+					"wounded": {
+						"count": 1143
+					}
+				}
+			}]
+		}
+	}
+},
+{
+	"name": "Battle of the Coral Sea",
+	"start": "1942-5-4",
+	"end": "1942-5-8",
+	"location": {
+		"latitude": -15.713058,
+		"longitude": 155.965934
+	},
+	"data": {
+		"text": "salut",
+		"jp": {
+			"fleet": [{
+				"CV": {
+					"count": 2
+				}
+			},
+			{
+				"CVL": {
+					"list": [{
+						"name": "Shouhou"
+					}],
+					"count": 1
+				}
+			},
+			{
+				"CA": {
+					"count": 6
+				}
+			},
+			{
+				"CL": {
+					"count": 3
+				}
+			},
+			{
+				"DD": {
+					"count": 15
+				}
+			},
+			{
+				"AM": {
+					"count": 5
+				}
+			},
+			{
+				"CM": {
+					"count": 2
+				}
+			},
+			{
+				"PC": {
+					"count": 2
+				}
+			},
+			{
+				"PG": {
+					"count": 3
+				}
+			},
+			{
+				"AO": {
+					"count": 1
+				}
+			},
+			{
+				"AV": {
+					"count": 1
+				}
+			},
+			{
+				"AP": {
+					"count": 12
+				}
+			},
+			{
+				"Ac": {
+					"count": 127
+				}
+			}],
+			"losses": [{
+				"CVL": {
+					"sunk": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"DD": {
+					"sunk": {
+						"count": 1
+					},
+					"damaged": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"CV": {
+					"damaged": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"AP": {
+					"damaged": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"Ac": {
+					"destroyed": {
+						"count": 92
+					}
+				}
+			},
+			{
+				"Others": {
+					"sunk": {
+						"count": 3
+					},
+					"damaged": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"Men": {
+					"killed": {
+						"count": 966
+					}
+				}
+			}]
+		},
+		"us": {
+			"fleet": [{
+				"CV": {
+					"list": [{
+						"name": "Yorktown"
+					},
+					{
+						"name": "Lexington"
+					}],
+					"count": 2
+				}
+			},
+			{
+				"CA": {
+					"count": 7
+				}
+			},
+			{
+				"CL": {
+					"count": 2
+				}
+			},
+			{
+				"DD": {
+					"count": 13
+				}
+			},
+			{
+				"AO": {
+					"count": 2
+				}
+			},
+			{
+				"AV": {
+					"count": 1
+				}
+			},
+			{
+				"Ac": {
+					"count": 128
+				}
+			}],
+			"losses": [{
+				"CV": {
+					"scuttled": {
+						"count": 1,
+						"list": ["Lexington"]
+					},
+					"damaged": {
+						"count": 1,
+						"list": ["Yorktown"]
+					}
+				}
+			},
+			{
+				"DD": {
+					"sunk": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"AO": {
+					"scuttled": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"Ac": {
+					"destroyed": {
+						"count": 69
+					}
+				}
+			},
+			{
+				"Men": {
+					"killed": {
+						"count": 656
+					}
+				}
+			}]
+		}
+	}
+},
+{
+	"name": "Battle of Midway",
+	"start": "1942-6-4",
+	"end": "1942-6-7",
+	"location": {
+		"latitude": 28.2,
+		"longitude": -177.35
+	},
+	"data": {
+		"text": "HEllo, I am the text",
+		"jp": {
+			"fleet": [{
+				"CV": {
+					"count": 4
+				}
+			},
+			{
+				"BB": {
+					"count": 2
+				}
+			},
+			{
+				"CA": {
+					"count": 2
+				}
+			},
+			{
+				"CL": {
+					"count": 1
+				}
+			},
+			{
+				"DD": {
+					"count": 12
+				}
+			},
+			{
+				"Ac": {
+					"count": 248
+				}
+			},
+			{
+				"FP": {
+					"count": 16
+				}
+			}],
+			"losses": [{
+				"CV": {
+					"sunk": {
+						"count": 4
+					}
+				}
+			},
+			{
+				"CA": {
+					"sunk": {
+						"count": 2
+					},
+					"damaged": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"Ac": {
+					"count": 248
+				}
+			},
+			{
+				"Men": {
+					"killed": {
+						"count": 3057
+					},
+					"captured": {
+						"count": 37
+					}
+				}
+			}]
+		},
+		"us": {
+			"fleet": [{
+				"CV": {
+					"count": 3
+				}
+			},
+			{
+				"CA": {
+					"count": 7
+				}
+			},
+			{
+				"CL": {
+					"count": 1
+				}
+			},
+			{
+				"DD": {
+					"count": 15
+				}
+			},
+			{
+				"Ac": {
+					"count": 233
+				}
+			},
+			{
+				"LBAc": {
+					"count": 127
+				}
+			},
+			{
+				"SS": {
+					"count": 16
+				}
+			}],
+			"losses": [{
+				"CV": {
+					"sunk": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"DD": {
+					"sunk": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"Ac": {
+					"destroyed": {
+						"count": 307
+					}
+				}
+			},
+			{
+				"Men": {
+					"killed": {
+						"count": 307
+					}
+				}
+			}]
+		}
+	}
+},
+{
+	"name": "Battle of Savo Island",
+	"start": "1942-8-8",
+	"end": "1942-8-9",
+	"location": {
+		"lattitude": -9.133333,
+		"longitude": 159.816667
+	},
+	"data": {
+		"text": "Coucou",
+		"jp": {
+			"fleet": [{
+				"CA": {
+					"count": 5
+				}
+			},
+			{
+				"CL": {
+					"count": 2
+				}
+			},
+			{
+				"DD": {
+					"count": 1
+				}
+			}],
+			"losses": [{
+				"CL": {
+					"damaged": {
+						"count": 3
+					}
+				}
+			},
+			{
+				"Men": {
+					"killed": {
+						"count": 129
+					}
+				}
+			}]
+		},
+		"us": {
+			"fleet": [{
+				"CA": {
+					"count": 6
+				}
+			},
+			{
+				"CL": {
+					"count": 2
+				}
+			},
+			{
+				"DD": {
+					"count": 15
+				}
+			}],
+			"losses": [{
+				"CA": {
+					"sunk": {
+						"count": 3
+					},
+					"scuttled": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"DD": {
+					"damaged": {
+						"count": 2
+					}
+				}
+			},
+			{
+				"Men": {
+					"killed": {
+						"count": 1077
+					}
+				}
+			}]
+		}
+	}
+},
+{
+	"name": "Naval Battle of Guadalcanal",
+	"start": "1942-11-12",
+	"end": "1942-11-15",
+	"location": {
+		"lattitude": 0,
+		"longitude": 0
+	},
+	"data": {
+		"text": "Guacamole !!",
+		"jp": {
+			"fleet": [{
+				"BB": {
+					"count": 2
+				}
+			},
+			{
+				"CA": {
+					"count": 6
+				}
+			},
+			{
+				"CL": {
+					"count": 4
+				}
+			},
+			{
+				"DD": {
+					"count": 16
+				}
+			},
+			{
+				"AP": {
+					"count": 11
+				}
+			}],
+			"losses": [{
+				"BB": {
+					"sunk": {
+						"count": 2
+					}
+				}
+			},
+			{
+				"CA": {
+					"sunk": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"DD": {
+					"sunk": {
+						"count": 3
+					}
+				}
+			},
+			{
+				"AP": {
+					"sunk": {
+						"count": 11
+					}
+				}
+			},
+			{
+				"Ac": {
+					"destroyed": {
+						"count": 64
+					}
+				}
+			}]
+		},
+		"us": {
+			"fleet": [{
+				"CV": {
+					"count": 1
+				}
+			},
+			{
+				"BB": {
+					"count": 2
+				}
+			},
+			{
+				"CA": {
+					"count": 2
+				}
+			},
+			{
+				"CL": {
+					"count": 3
+				}
+			},
+			{
+				"DD": {
+					"count": 12
+				}
+			}],
+			"losses": [{
+				"CL": {
+					"sunk": {
+						"count": 2
+					}
+				}
+			},
+			{
+				"DD": {
+					"sunk": {
+						"count": 7
+					}
+				}
+			},
+			{
+				"Ac": {
+					"destroyed": {
+						"count": 35
+					}
+				}
+			}]
+		}
+	}
+},
+{
+	"name": "Battle of the Philippine Sea",
+	"start": "1944-6-19",
+	"end": "1944-6-20",
+	"location": {
+		"lattitude": 20,
+		"longitude": 130
+	},
+	"data": {
+		"text": "Hi, I am back, I am the text",
+		"jp": {
+			"fleet": [{
+				"CV": {
+					"count": 5
+				}
+			},
+			{
+				"CVL": {
+					"count": 4
+				}
+			},
+			{
+				"BB": {
+					"count": 5
+				}
+			},
+			{
+				"CA": {
+					"count": 11
+				}
+			},
+			{
+				"CL": {
+					"count": 2
+				}
+			},
+			{
+				"DD": {
+					"count": 31
+				}
+			},
+			{
+				"SS": {
+					"count": 24
+				}
+			},
+			{
+				"AO": {
+					"count": 6
+				}
+			},
+			{
+				"Ac": {
+					"count": 450
+				}
+			},
+			{
+				"LBAc": {
+					"count": 300
+				}
+			}],
+			"losses": [{
+				"CV": {
+					"sunk": {
+						"count": 3
+					}
+				}
+			},
+			{
+				"AO": {
+					"sunk": {
+						"count": 2
+					}
+				}
+			},
+			{
+				"Ac": {
+					"destroyed": {
+						"count": 645
+					}
+				}
+			},
+			{
+				"Others": {
+					"damaged": {
+						"count": 6
+					}
+				}
+			},
+			{
+				"Men": {
+					"killed": {
+						"count": 2987
+					}
+				}
+			}]
+		},
+		"us": {
+			"fleet": [{
+				"CV": {
+					"count": 7
+				}
+			},
+			{
+				"CVL": {
+					"count": 8
+				}
+			},
+			{
+				"BB": {
+					"count": 7
+				}
+			},
+			{
+				"CA": {
+					"count": 8
+				}
+			},
+			{
+				"CL": {
+					"count": 13
+				}
+			},
+			{
+				"DD": {
+					"count": 68
+				}
+			},
+			{
+				"SS": {
+					"count": 28
+				}
+			},
+			{
+				"Ac": {
+					"count": 900
+				}
+			}],
+			"losses": [{
+				"BB": {
+					"damaged": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"Ac": {
+					"destroyed": {
+						"count": 123
+					}
+				}
+			},
+			{
+				"Men": {
+					"killed": {
+						"count": 109
+					}
+				}
+			}]
+		}
+	}
+},
+{
+	"name": "Battle of Leyte Gulf",
+	"start": "1944-10-23",
+	"end": "1944-10-26",
+	"location": {
+		"lattitude": 0,
+		"longitude": 0
+	},
+	"data": {
+		"text": "hello",
+		"jp": {
+			"fleet": [{
+				"CV": {
+					"count": 1
+				}
+			},
+			{
+				"CVL": {
+					"count": 3
+				}
+			},
+			{
+				"BB": {
+					"count": 9
+				}
+			},
+			{
+				"CA": {
+					"count": 14
+				}
+			},
+			{
+				"CL": {
+					"count": 6
+				}
+			},
+			{
+				"DD": {
+					"count": 35
+				}
+			},
+			{
+				"Ac": {
+					"count": 300
+				}
+			}],
+			"losses": [{
+				"CV": {
+					"sunk": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"CVL": {
+					"sunk": {
+						"count": 3
+					}
+				}
+			},
+			{
+				"BB": {
+					"sunk": {
+						"count": 3
+					}
+				}
+			},
+			{
+				"CA": {
+					"sunk": {
+						"count": 10
+					}
+				}
+			},
+			{
+				"CL": {
+					"sunk": {
+						"count": 0
+					}
+				}
+			},
+			{
+				"DD": {
+					"sunk": {
+						"count": 10
+					}
+				}
+			},
+			{
+				"Ac": {
+					"destroyed": {
+						"count": 300
+					}
+				}
+			}]
+		},
+		"us": {
+			"fleet": [{
+				"CV": {
+					"count": 8
+				}
+			},
+			{
+				"CVL": {
+					"count": 8
+				}
+			},
+			{
+				"CVE": {
+					"count": 18
+				}
+			},
+			{
+				"BB": {
+					"count": 12
+				}
+			},
+			{
+				"CA": {
+					"count": 24
+				}
+			},
+			{
+				"CL": {
+					"count": 0
+				}
+			},
+			{
+				"DD": {
+					"count": 166
+				}
+			},
+			{
+				"DE": {
+					"count": 0
+				}
+			},
+			{
+				"Others": {
+					"name": "PT,SS & others fleet auxiliaries",
+					"count": "many"
+				}
+			},
+			{
+				"Ac": {
+					"count": 1500
+				}
+			}],
+			"losses": [{
+				"CVL": {
+					"sunk": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"CVE": {
+					"sunk": {
+						"count": 2
+					}
+				}
+			},
+			{
+				"DD": {
+					"sunk": {
+						"count": 2
+					}
+				}
+			},
+			{
+				"DE": {
+					"sunk": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"Ac": {
+					"destroyed": {
+						"count": 200
+					}
+				}
+			}]
+		}
+	}
+},
+{
+	"name": "Battle of Okinawa",
+	"start": "1945-4-1",
+	"end": "1945-6-22",
+	"location": {
+		"lattitude": 0,
+		"longitude": 0
+	},
+	"data": {
+		"text": "coucou",
+		"jp": {
+			"fleet": [],
+			"losses": [{
+				"BB": {
+					"sunk": {
+            "count": 1,
+            "list":["Yamato"]
+					}
+				}
+			},
+			{
+				"CL": {
+					"sunk": {
+            "count": 1,
+            "list":["Yahagi"]
+					}
+				}
+			},
+			{
+				"DD": {
+					"sunk": {
+						"count": 5
+					}
+				}
+			},
+			{
+				"Other": {
+					"sunk": {
+						"count": 9
+					}
+				}
+			},
+			{
+				"Ac": {
+					"destroyed": {
+						"count": 1430
+					}
+				}
+			}]
+		},
+		"us": {
+			"fleet": [],
+			"losses": [{
+				"DD": {
+					"sunk": {
+						"count": 12
+					}
+				}
+			},
+			{
+				"LHA": {
+					"sunk": {
+						"count": 15
+					}
+				}
+			},
+			{
+				"Other": {
+					"sunk": {
+						"count": 386
+					}
+				}
+			},
+			{
+				"Ac": {
+					"destroyed": {
+						"count": 768
+					}
+				}
+			}]
+		}
+	}
+}]

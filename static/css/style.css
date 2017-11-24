@@ -1,0 +1,80 @@
+body {
+  margin: 0px;
+}
+
+#infoPanel {
+  left: 100%;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  transition: all .5s ease-out;
+}
+
+.hidden {
+  left: -25px !important;
+  border-radius: 5px 0px 0px 5px;
+
+}
+
+#toggleInfoPanel {
+  position: absolute;
+  top: 5px;
+  height: 50px;
+  width: 25px;
+  background-color: black;
+  border: none;
+  z-index: 11;
+  left: 0px;
+  transition: left .35s ease;
+}
+
+#toggleInfoPanel:hover {
+  background-color: grey;
+}
+
+#infoBackground {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  //background-color: black;
+  background: linear-gradient(141deg,#0c0c0c 35%, #000000 70%);
+  opacity: .75;
+  z-index: 10;
+}
+
+#infoText{
+  position: absolute;
+  opacity: 1;
+}
+
+#mapContainer
+{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  top: 0px;
+}
+
+#mapid {
+  width: 100%;
+  height:  100%;
+}
+
+#scroller {
+  margin: 5px;
+}
+
+.toScroll {
+  margin-bottom: 95vh;
+  background-color: red;
+  //opacity: 0;
+}
+
+.title {
+  font-family: 'Courier';
+  font-size: 32px;
+  font-weight: bold;
+}

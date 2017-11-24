@@ -1,0 +1,76 @@
+<% include ../partials/header.ejs %>
+<div id="infoPanel">
+  <button id="toggleInfoPanel" class="hidden"></button>
+  <div id="infoBackground"></div>
+  <div id="infoText">
+  </div>
+</div>
+
+<div id="mapContainer">
+  <div id='mapid'></div>
+</div>
+<div id="scroller">
+  <% var i; for(i = 0; i < data.length; i++) { %>
+  <section class='toScroll title'><%= data[i].name %></section>
+  <%
+  }
+  %>
+</div>
+
+<script>
+  const data = <%- JSON.stringify(data) %>;
+  var mymap = L.map('mapid').setView([data[0].location.latitude, data[0].location.longitude],8);
+  mymap.touchZoom.disable();
+  mymap.scrollWheelZoom.disable();
+  mymap.doubleClickZoom.disable();
+  mymap.zoomControl.disable();
+  mymap.dragging.disable();
+  mymap.keyboard.disable();
+  mymap.boxZoom.disable();
+  document.getElementsByClassName('leaflet-control-zoom')[0].style.visibility = 'hidden';
+  
+
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1IjoiYWxhaW5oYXJkeSIsImEiOiJjamEwdWVveXE4ZmUwMzNweTc3Y3M2YXAzIn0.AAD0RPr99q21ifRDZPQ9yw'
+}).addTo(mymap);
+
+var circle = L.circle([21.3445072, -157.9748912], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 10000,
+    className: 'pearharbour-data'
+}).addTo(mymap);
+
+
+  function showInfo() {
+    console.log('showInfo()');
+    var pnl = document.getElementById('infoPanel');
+    document.getElementById('toggleInfoPanel').classList.remove("hidden"); 
+    pnl.style.left = '0px';
+    document.getElementById('toggleInfoPanel').onclick = hideInfo;
+  }
+
+  function hideInfo() {
+    console.log('hideInfo()');
+    var pnl = document.getElementById('infoPanel');
+    document.getElementById('toggleInfoPanel').classList.add("hidden"); 
+    pnl.style.left = "100%";
+    document.getElementById('toggleInfoPanel').onclick = showInfo;
+  }
+  
+  document.getElementById('toggleInfoPanel').onclick = showInfo;
+  document.onkeypress = (e) => {
+    console.log(e.keyCode);
+    if(e.keyCode == 27) {
+      hideInfo();
+    }
+  };
+</script>
+
+
+
+<% include ../partials/footer.ejs %>
