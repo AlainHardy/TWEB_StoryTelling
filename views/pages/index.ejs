@@ -11,7 +11,7 @@
 </div>
 <div id="scroller">
   <% var i; for(i = 0; i < data.length; i++) { %>
-  <section class='toScroll title'><%= data[i].name %></section>
+  <section class='step toScroll title'><%= data[i].name %></section>
   <%
   }
   %>
@@ -19,7 +19,7 @@
 
 <script>
   const data = <%- JSON.stringify(data) %>;
-  var mymap = L.map('mapid').setView([data[0].location.latitude, data[0].location.longitude],8);
+  var mymap = L.map('mapid').setView(getCoordinate(data[0].location),8);
   mymap.touchZoom.disable();
   mymap.scrollWheelZoom.disable();
   mymap.doubleClickZoom.disable();
@@ -42,7 +42,7 @@ var circle = L.circle([21.3445072, -157.9748912], {
     fillColor: '#f03',
     fillOpacity: 0.5,
     radius: 10000,
-    className: 'pearharbour-data'
+    className: 'pearlharbour-data'
 }).addTo(mymap);
 
 
@@ -69,6 +69,130 @@ var circle = L.circle([21.3445072, -157.9748912], {
       hideInfo();
     }
   };
+
+  function getCoordinate(location) {
+    let ltd = location.latitude;
+    let lng = location.longitude;
+    if (lng >= 0) {
+      lng = lng % 360;
+    } else {
+      while(lng < 0) {
+        lng += 360;
+      }
+    }
+    
+    return [ltd, lng];
+  }
+
+
+  //-A Start---------------------------------------------------------
+  let sectionPositions = [];
+  let sections = d3.selectAll('.step');
+  let containerStart = [];
+  let currentIndex = 0;
+
+  //function resize() {
+    let startPos;
+
+    /*sections.forEach(function(element) {
+      let top = this.getBoundingClientRect();
+
+      if(i === 0) {
+        startPos = top;
+      }
+      sectionPositions.push(top-startPos);
+    }, this);*/
+
+    for(let i = 0; i < sections.size(); i++) {
+      let top = sections._groups[0][i].getBoundingClientRect().top;
+
+      if(i === 0) {
+        startPos = top;
+      }
+      sectionPositions.push(top - startPos);
+    }
+  //}
+
+  d3.select(window).on('scroll.scroller', position);
+
+  let dispatch = d3.dispatch("active", "progress");
+
+  function position() {
+    let pos = window.pageYOffset - 10;
+    let sectionIndex = d3.bisect(sectionPositions, pos);
+    sectionIndex = Math.min(sections.size() - 1, sectionIndex);
+
+    if (currentIndex !== sectionIndex) {
+      dispatch.call('active', this, sectionIndex);
+      currentIndex = sectionIndex;
+    }
+
+    let prevIndex = Math.max(sectionIndex - 1, 0);
+    let prevTop = sectionPositions[prevIndex];
+    let progress = (pos - prevTop) / (sectionPositions[sectionIndex] - prevTop);
+    dispatch.call('progress', this, currentIndex, progress);
+  }
+
+  scroll.on = function (action, callback) {
+    dispatch.on(action, callback);
+  };
+
+  activateFunctions = [];
+  activateFunctions[0] = showPearlHarbour;
+  activateFunctions[1] = showCoralSea;
+  activateFunctions[2] = showMidway;
+  activateFunctions[3] = showGuadalcanal;
+  activateFunctions[4] = showPhilippineSea;
+  activateFunctions[5] = showLeyteGulf;
+  activateFunctions[6] = showOpTenGo;
+  activateFunctions[7] = showOkinawa;
+
+  scroll.on('active', function(index){
+    activateFunctions[index]();
+  });
+
+  function showPearlHarbour() {
+    console.log('pearl harbour');
+    mymap.flyTo(getCoordinate(data[0].location),8);
+  }
+  
+  function showCoralSea() {
+    console.log('coral sea');
+    mymap.flyTo(getCoordinate(data[1].location),5);
+  }
+  
+  function showMidway() {
+    console.log('midway');
+    mymap.flyTo(getCoordinate(data[2].location),5);
+  }
+  
+  function showGuadalcanal() {
+    console.log('guadalcanal');
+    mymap.flyTo(getCoordinate(data[3].location),5);
+  }
+  
+  function showPhilippineSea() {
+    console.log('philippine sea');
+    mymap.flyTo(getCoordinate(data[4].location),5);
+  }
+  
+  function showLeyteGulf() {
+    console.log('Leyte gulf');
+    mymap.flyTo(getCoordinate(data[5].location),5);
+  }
+  
+  function showOpTenGo() {
+    console.log('operation ten go');
+    mymap.flyTo(getCoordinate(data[6].location),5);
+  }
+  
+  function showOkinawa() {
+    console.log('okinawa');
+    mymap.flyTo(getCoordinate(data[7].location),5);
+  }
+
+
+  //-A End-----------------------------------------------------------
 </script>
 
 

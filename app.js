@@ -12,7 +12,7 @@ app.set('port', (process.env.PORT) || 3000);
 app.use(express.static(path.join(__dirname, '/static')));
 
 app.get('/', (req, res) => {
-  res.render('pages/index', { title: 'Bonjour', data: datas });
+  res.render('pages/index', { title: 'Pacific Ocean Theater', data: datas });
 });
 
 app.listen(app.get('port'), () => {
