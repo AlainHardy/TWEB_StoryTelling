@@ -38,7 +38,6 @@ body {
   top: 0px;
   width: 100%;
   height: 100%;
-  //background-color: black;
   background: linear-gradient(141deg,#0c0c0c 35%, #000000 70%);
   opacity: .75;
   z-index: 10;
@@ -63,13 +62,25 @@ body {
   height:  100%;
 }
 
+#intro {
+  height: 200vh;
+  z-index: 10;
+  background: linear-gradient( 180deg,#130000 50%, #73b6e6e6 90%, transparent 100%);
+}
+
 #scroller {
   margin: 5px;
 }
 
+#outro {
+  height: 200vh;
+  z-index: 10;
+  background: linear-gradient( 360deg, #fffff6 50% , #73b6e6e6 90%,transparent 100%);
+}
+
 .toScroll {
-  margin-bottom: 95vh;
-  background-color: red;
+  margin-bottom: 75vh;
+  //background-color: red;
   //opacity: 0;
 }
 
@@ -77,4 +88,8 @@ body {
   font-family: 'Courier';
   font-size: 32px;
   font-weight: bold;
+}
+
+.step {
+  opacity: 0;
 }

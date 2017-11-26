@@ -9,12 +9,18 @@
 <div id="mapContainer">
   <div id='mapid'></div>
 </div>
+<div id="intro">
+
+</div>
 <div id="scroller">
   <% var i; for(i = 0; i < data.length; i++) { %>
   <section class='step toScroll title'><%= data[i].name %></section>
   <%
   }
   %>
+</div>
+<div id="outro">
+
 </div>
 
 <script>
@@ -61,6 +67,14 @@ var circle = L.circle([21.3445072, -157.9748912], {
     pnl.style.left = "100%";
     document.getElementById('toggleInfoPanel').onclick = showInfo;
   }
+
+  function hideAllStep(except) {
+    for(let i = 0; i < sections.size(); i++) {
+      if(i !== except) {
+        let top = sections._groups[0][i].style.opacity = 0;
+      }
+    }
+  }
   
   document.getElementById('toggleInfoPanel').onclick = showInfo;
   document.onkeypress = (e) => {
@@ -100,16 +114,16 @@ var circle = L.circle([21.3445072, -157.9748912], {
       if(i === 0) {
         startPos = top;
       }
-      sectionPositions.push(top-startPos);
+      sectionPositions.push(tsop-startPos);
     }, this);*/
 
     for(let i = 0; i < sections.size(); i++) {
-      let top = sections._groups[0][i].getBoundingClientRect().top;
+      let top = sections._groups[0][i].getBoundingClientRect().top + window.pageYOffset;
 
       if(i === 0) {
         startPos = top;
       }
-      sectionPositions.push(top - startPos);
+      sectionPositions.push(top);
     }
   //}
 
@@ -118,19 +132,39 @@ var circle = L.circle([21.3445072, -157.9748912], {
   let dispatch = d3.dispatch("active", "progress");
 
   function position() {
-    let pos = window.pageYOffset - 10;
-    let sectionIndex = d3.bisect(sectionPositions, pos);
-    sectionIndex = Math.min(sections.size() - 1, sectionIndex);
+    let bottomMargin = 50;
+    let topMargin = 150;
+    let pos = window.pageYOffset;
+    let top = window.pageYOffset; //0 - document.getElementById('scroller').getBoundingClientRect().top;
+    //let sectionIndex = d3.bisect(sectionPositions, pos);
+    
+    let sectionIndex = sectionPositions.findIndex( (a) => {
+      return a > top - window.innerHeight*0.11 && a < top + window.innerHeight*0.51;
+    });
+    
+    hideAllStep(sectionIndex);
 
-    if (currentIndex !== sectionIndex) {
+    if (sectionIndex === -1) {
+      return;
+    }
+
+    if(pos + window.innerHeight * .5 > sectionPositions[sectionIndex] && pos - window.innerHeight * .1 <= sectionPositions[sectionIndex]) {
+      let opacity = 1 - (sectionPositions[sectionIndex] - pos - 1) / (window.innerHeight*0.3*0.9);
+      sections._groups[0][sectionIndex].style.opacity = opacity;
+    }
+
+
+    let a = sectionPositions[sectionIndex];
+
+    if (currentIndex !== sectionIndex && a > top - topMargin && a < top + bottomMargin) {
       dispatch.call('active', this, sectionIndex);
       currentIndex = sectionIndex;
     }
-
+  /*
     let prevIndex = Math.max(sectionIndex - 1, 0);
     let prevTop = sectionPositions[prevIndex];
     let progress = (pos - prevTop) / (sectionPositions[sectionIndex] - prevTop);
-    dispatch.call('progress', this, currentIndex, progress);
+    dispatch.call('progress', this, currentIndex, progress);*/
   }
 
   scroll.on = function (action, callback) {
@@ -141,11 +175,12 @@ var circle = L.circle([21.3445072, -157.9748912], {
   activateFunctions[0] = showPearlHarbour;
   activateFunctions[1] = showCoralSea;
   activateFunctions[2] = showMidway;
-  activateFunctions[3] = showGuadalcanal;
-  activateFunctions[4] = showPhilippineSea;
-  activateFunctions[5] = showLeyteGulf;
-  activateFunctions[6] = showOpTenGo;
-  activateFunctions[7] = showOkinawa;
+  activateFunctions[3] = showSavoIsland
+  activateFunctions[4] = showGuadalcanal;
+  activateFunctions[5] = showPhilippineSea;
+  activateFunctions[6] = showLeyteGulf;
+  activateFunctions[7] = showOpTenGo;
+  activateFunctions[8] = showOkinawa;
 
   scroll.on('active', function(index){
     activateFunctions[index]();
@@ -165,30 +200,35 @@ var circle = L.circle([21.3445072, -157.9748912], {
     console.log('midway');
     mymap.flyTo(getCoordinate(data[2].location),5);
   }
+
+  function showSavoIsland() {
+    console.log('savo island');
+    mymap.flyTo(getCoordinate(data[3].location),5);
+  }
   
   function showGuadalcanal() {
     console.log('guadalcanal');
-    mymap.flyTo(getCoordinate(data[3].location),5);
+    mymap.flyTo(getCoordinate(data[4].location),5);
   }
   
   function showPhilippineSea() {
     console.log('philippine sea');
-    mymap.flyTo(getCoordinate(data[4].location),5);
+    mymap.flyTo(getCoordinate(data[5].location),5);
   }
   
   function showLeyteGulf() {
     console.log('Leyte gulf');
-    mymap.flyTo(getCoordinate(data[5].location),5);
+    mymap.flyTo(getCoordinate(data[6].location),5);
   }
   
   function showOpTenGo() {
     console.log('operation ten go');
-    mymap.flyTo(getCoordinate(data[6].location),5);
+    mymap.flyTo(getCoordinate(data[7].location),5);
   }
   
   function showOkinawa() {
     console.log('okinawa');
-    mymap.flyTo(getCoordinate(data[7].location),5);
+    mymap.flyTo(getCoordinate(data[8].location),5);
   }
 
 
