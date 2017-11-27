@@ -9,18 +9,20 @@
 <div id="mapContainer">
   <div id='mapid'></div>
 </div>
-<div id="intro">
+<div id="content">
+  <div id="intro">
 
-</div>
-<div id="scroller">
-  <% var i; for(i = 0; i < data.length; i++) { %>
-  <section class='step toScroll title'><%= data[i].name %></section>
-  <%
-  }
-  %>
-</div>
-<div id="outro">
+  </div>
+  <div id="scroller">
+    <% var i; for(i = 0; i < data.length; i++) { %>
+    <section class='step toScroll title'><%= data[i].name %></section>
+    <%
+    }
+    %>
+  </div>
+  <div id="outro">
 
+  </div>
 </div>
 
 <script>
@@ -43,25 +45,41 @@
     accessToken: 'pk.eyJ1IjoiYWxhaW5oYXJkeSIsImEiOiJjamEwdWVveXE4ZmUwMzNweTc3Y3M2YXAzIn0.AAD0RPr99q21ifRDZPQ9yw'
 }).addTo(mymap);
 
-var circle = L.circle([21.3445072, -157.9748912], {
+/*
+var circle = L.circle(getCoordinate(data[0].location), {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5,
     radius: 10000,
-    className: 'pearlharbour-data'
-}).addTo(mymap);
+    className: 'pearlharbour-data redCircle'
+}).addTo(mymap);*/
 
+  L.circle(getCoordinate(data[0].location), {
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.5,
+      radius: 10000,
+      className: 'pearlharbour-data redCircle'
+  }).addTo(mymap);
+
+  let scrollingPosition;
 
   function showInfo() {
     console.log('showInfo()');
     var pnl = document.getElementById('infoPanel');
-    document.getElementById('toggleInfoPanel').classList.remove("hidden"); 
+    document.getElementById('toggleInfoPanel').classList.remove('hidden'); 
     pnl.style.left = '0px';
     document.getElementById('toggleInfoPanel').onclick = hideInfo;
+
+    scrollingPosition = [window.pageXOffset, window.pageYOffset];
+    document.getElementById('content').classList.add('stopScrolling');
   }
 
   function hideInfo() {
     console.log('hideInfo()');
+    document.getElementById('content').classList.remove('stopScrolling');
+    window.scrollTo(scrollingPosition[0], scrollingPosition[1]);
+    
     var pnl = document.getElementById('infoPanel');
     document.getElementById('toggleInfoPanel').classList.add("hidden"); 
     pnl.style.left = "100%";
