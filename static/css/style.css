@@ -85,8 +85,6 @@ body {
 
 .toScroll {
   margin-bottom: 75vh;
-  //background-color: red;
-  //opacity: 0;
 }
 
 .title {
@@ -96,5 +94,14 @@ body {
 }
 
 .step {
+  opacity: 0;
+}
+
+.redCircle {
+  z-index: 100;
+  transition: opacity 2s ease-out;
+}
+
+.hiddenCircle {
   opacity: 0;
 }
