@@ -153,8 +153,10 @@
   let containerStart = [];
   let currentIndex = -1;
 
-  //function resize() {
+  function resize() {
     let startPos;
+
+    sectionPositions = [];
 
     /*sections.forEach(function(element) {
       let top = this.getBoundingClientRect();
@@ -167,13 +169,20 @@
 
     for(let i = 0; i < sections.size(); i++) {
       let top = sections._groups[0][i].getBoundingClientRect().top + window.pageYOffset;
+      //let top = sections._groups[0][i].getBoundingClientRect().top + document.getElementById('intro').getBoundingClientRect().height;
 
       if(i === 0) {
         startPos = top;
       }
       sectionPositions.push(top);
     }
-  //}
+  }
+  resize();
+
+  window.addEventListener('resize', function() {
+    resize(); 
+    window.scrollTo(0, sectionPositions[currentIndex]);   
+  });
 
   d3.select(window).on('scroll.scroller', position);
 
@@ -182,10 +191,12 @@
   function position() {
     let bottomMargin = 50;
     let topMargin = 150;
+    // TODO to refactor
     let pos = window.pageYOffset;
     let top = window.pageYOffset; //0 - document.getElementById('scroller').getBoundingClientRect().top;
     //let sectionIndex = d3.bisect(sectionPositions, pos);
     
+    // Find which element's position is in the frame of a portion of the visible window
     let sectionIndex = sectionPositions.findIndex( (a) => {
       return a > top - window.innerHeight*0.11 && a < top + window.innerHeight*0.81;
     });
@@ -196,11 +207,10 @@
       return;
     }
 
-    if(pos + window.innerHeight * 0.8 > sectionPositions[sectionIndex] && pos - window.innerHeight * .1 <= sectionPositions[sectionIndex]) {
+    //if(pos + window.innerHeight * 0.8 > sectionPositions[sectionIndex] && pos - window.innerHeight * .1 <= sectionPositions[sectionIndex]) {
       let opacity = 1 - (sectionPositions[sectionIndex] - pos - 1) / (window.innerHeight*0.8*0.9);
       sections._groups[0][sectionIndex].style.opacity = opacity;
-    }
-
+    //}
 
     let a = sectionPositions[sectionIndex];
 
@@ -219,6 +229,8 @@
     dispatch.on(action, callback);
   };
 
+  // TODO to refactor it is not usefull to have this kind of implementation
+  // each function are not different from each other
   activateFunctions = [];
   activateFunctions[0] = showPearlHarbour;
   activateFunctions[1] = showCoralSea;
