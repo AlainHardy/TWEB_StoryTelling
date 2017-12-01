@@ -129,10 +129,62 @@
   
   document.getElementById('toggleInfoPanel').onclick = showInfo;
   document.onkeypress = (e) => {
+    console.log(e.keyCode);
+    /*
     if(e.keyCode == 27) {
       hideInfo();
+    }*/
+    switch(e.keyCode) {
+      // Esc
+      case 27:
+        hideInfo();
+        return false;
+      // Page Up
+      case 33:
+          if (currentIndex === 0) {
+            scrollToHome();
+          } else if (currentIndex >= data.length) {
+            window.scrollTo(0, sectionPositions[data.length - 1]);
+          } else {
+            window.scrollTo(0, sectionPositions[currentIndex - 1]);
+          }
+        return false;
+      // Space
+      case 0:
+      // Page Down
+      case 34:
+        if (currentIndex < 0) {
+          window.scrollTo(0, sectionPositions[0]);
+        } else if (currentIndex >= data.length - 1) {
+          scrollToEnd();
+        } else {
+          window.scrollTo(0, sectionPositions[currentIndex+1]);
+        }
+        return false;
+      // Home
+      case 36:
+        scrollToHome();
+        return false;
+      // End
+      case 35:
+        scrollToEnd();
+        return false;
     }
   };
+
+  function scrollToHome() {
+    window.scrollTo(0, document.getElementById('intro').getBoundingClientRect().top);
+    currentIndex = -1;
+  }
+
+  function scrollToEnd() {
+    if (currentIndex >= data.length) {
+      return;
+    }
+    let a = document.getElementById('outro').getBoundingClientRect();
+    window.scrollTo(0, a.bottom - a.height * 0.5 + window.pageYOffset);
+    currentIndex = data.length;
+  }
 
   function getCoordinate(location) {
     let ltd = location.latitude;
@@ -191,6 +243,7 @@
   let dispatch = d3.dispatch("active", "progress");
 
   function position() {
+    console.log('in position');
     let bottomMargin = 50;
     let topMargin = 150;
     // TODO to refactor
@@ -202,6 +255,9 @@
     let sectionIndex = sectionPositions.findIndex( (a) => {
       return a > top - window.innerHeight*0.11 && a < top + window.innerHeight*0.81;
     });
+    console.log("section Index : " +sectionIndex);
+    console.log("current Index : " +currentIndex);
+
     
     hideAllStep(sectionIndex);
 
@@ -251,6 +307,9 @@
   
 
   mymap.on('moveend', function() {
+      if(currentIndex < 0 || currentIndex >= data.length - 1)
+        return;
+
       document.getElementsByClassName('redCircle')[currentIndex].classList.remove('hiddenCircle');
   });
 
