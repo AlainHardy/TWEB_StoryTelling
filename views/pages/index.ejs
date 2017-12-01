@@ -103,13 +103,12 @@
     pnl.style.left = '0px';
     document.getElementById('toggleInfoPanel').onclick = hideInfo;
 
-    scrollingPosition = [window.pageXOffset, window.pageYOffset];
     document.getElementById('content').classList.add('stopScrolling');
   }
 
   function hideInfo() {
     document.getElementById('content').classList.remove('stopScrolling');
-    window.scrollTo(scrollingPosition[0], scrollingPosition[1]);
+    window.scrollTo(0, sectionPositions[currentIndex]);
     
     var pnl = document.getElementById('infoPanel');
     document.getElementById('toggleInfoPanel').classList.add("hidden"); 
