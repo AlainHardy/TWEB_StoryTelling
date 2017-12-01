@@ -92,9 +92,7 @@
       fillOpacity: 0.5,
       radius: locationData[i].radius,
       className: locationData[i].className + ' redCircle hiddenCircle'
-    }).addTo(mymap)
-
-    //circle.addTo(mymap);
+    }).addTo(mymap);
   }
 
   let scrollingPosition;
@@ -130,11 +128,14 @@
   document.getElementById('toggleInfoPanel').onclick = showInfo;
   document.onkeypress = (e) => {
     console.log(e.keyCode);
-    /*
-    if(e.keyCode == 27) {
-      hideInfo();
-    }*/
+
     switch(e.keyCode) {
+      // Left
+      case 37:
+        showInfo();
+        return false;
+      // Right
+      case 39:
       // Esc
       case 27:
         hideInfo();
@@ -212,18 +213,8 @@
 
     sectionPositions = [];
 
-    /*sections.forEach(function(element) {
-      let top = this.getBoundingClientRect();
-
-      if(i === 0) {
-        startPos = top;
-      }
-      sectionPositions.push(tsop-startPos);
-    }, this);*/
-
     for(let i = 0; i < sections.size(); i++) {
       let top = sections._groups[0][i].getBoundingClientRect().top + window.pageYOffset;
-      //let top = sections._groups[0][i].getBoundingClientRect().top + document.getElementById('intro').getBoundingClientRect().height;
 
       if(i === 0) {
         startPos = top;
@@ -243,21 +234,14 @@
   let dispatch = d3.dispatch("active", "progress");
 
   function position() {
-    console.log('in position');
     let bottomMargin = 50;
     let topMargin = 150;
-    // TODO to refactor
-    let pos = window.pageYOffset;
-    let top = window.pageYOffset; //0 - document.getElementById('scroller').getBoundingClientRect().top;
-    //let sectionIndex = d3.bisect(sectionPositions, pos);
+    let screenTop = window.pageYOffset;
     
     // Find which element's position is in the frame of a portion of the visible window
     let sectionIndex = sectionPositions.findIndex( (a) => {
-      return a > top - window.innerHeight*0.11 && a < top + window.innerHeight*0.81;
+      return a > screenTop - window.innerHeight*0.11 && a < screenTop + window.innerHeight*0.81;
     });
-    console.log("section Index : " +sectionIndex);
-    console.log("current Index : " +currentIndex);
-
     
     hideAllStep(sectionIndex);
 
@@ -266,43 +250,25 @@
     }
 
     //if(pos + window.innerHeight * 0.8 > sectionPositions[sectionIndex] && pos - window.innerHeight * .1 <= sectionPositions[sectionIndex]) {
-      let opacity = 1 - (sectionPositions[sectionIndex] - pos - 1) / (window.innerHeight*0.8*0.9);
-      sections._groups[0][sectionIndex].style.opacity = opacity;
+    let opacity = 1 - (sectionPositions[sectionIndex] - screenTop - 1) / (window.innerHeight*0.8*0.9);
+    sections._groups[0][sectionIndex].style.opacity = opacity;
     //}
 
-    let a = sectionPositions[sectionIndex];
+    let newIndexPos = sectionPositions[sectionIndex];
 
-    if (currentIndex !== sectionIndex && a > top - topMargin && a < top + bottomMargin) {
+    // When the section is near the top in a define frame, trigger the event to move the map
+    if (currentIndex !== sectionIndex && newIndexPos > screenTop - topMargin && newIndexPos < screenTop + bottomMargin) {
       dispatch.call('active', this, sectionIndex);
       currentIndex = sectionIndex;
     }
-  /*
-    let prevIndex = Math.max(sectionIndex - 1, 0);
-    let prevTop = sectionPositions[prevIndex];
-    let progress = (pos - prevTop) / (sectionPositions[sectionIndex] - prevTop);
-    dispatch.call('progress', this, currentIndex, progress);*/
   }
 
   scroll.on = function (action, callback) {
     dispatch.on(action, callback);
   };
 
-  // TODO to refactor it is not usefull to have this kind of implementation
-  // each function are not different from each other
-  activateFunctions = [];
-  activateFunctions[0] = showPearlHarbour;
-  activateFunctions[1] = showCoralSea;
-  activateFunctions[2] = showMidway;
-  activateFunctions[3] = showSavoIsland
-  activateFunctions[4] = showGuadalcanal;
-  activateFunctions[5] = showPhilippineSea;
-  activateFunctions[6] = showLeyteGulf;
-  activateFunctions[7] = showOpTenGo;
-  activateFunctions[8] = showOkinawa;
-  activateFunctions[9] = showOverview;
-
   scroll.on('active', function(index){
-    activateFunctions[index](index);
+    mymap.flyTo(getCoordinate(data[index].location),locationData[index].zoom);
   });
   
 
@@ -312,46 +278,6 @@
 
       document.getElementsByClassName('redCircle')[currentIndex].classList.remove('hiddenCircle');
   });
-
-  function showPearlHarbour(index) {
-    mymap.flyTo(getCoordinate(data[index].location),locationData[index].zoom);
-  }
-  
-  function showCoralSea(index) {
-    mymap.flyTo(getCoordinate(data[index].location),locationData[index].zoom);
-  }
-  
-  function showMidway(index) {
-    mymap.flyTo(getCoordinate(data[index].location),locationData[index].zoom);
-  }
-
-  function showSavoIsland(index) {
-    mymap.flyTo(getCoordinate(data[index].location),locationData[index].zoom);
-  }
-  
-  function showGuadalcanal(index) {
-    mymap.flyTo(getCoordinate(data[index].location),locationData[index].zoom);
-  }
-  
-  function showPhilippineSea(index) {
-    mymap.flyTo(getCoordinate(data[index].location),locationData[index].zoom);
-  }
-  
-  function showLeyteGulf(index) {
-    mymap.flyTo(getCoordinate(data[index].location),locationData[index].zoom);
-  }
-  
-  function showOpTenGo(index) {
-    mymap.flyTo(getCoordinate(data[index].location),locationData[index].zoom);
-  }
-  
-  function showOkinawa(index) {
-    mymap.flyTo(getCoordinate(data[index].location),locationData[index].zoom);
-  }
-
-  function showOverview(index) {
-    mymap.flyTo(getCoordinate(data[index].location),locationData[index].zoom);
-  }
 
 
   //-A End-----------------------------------------------------------
