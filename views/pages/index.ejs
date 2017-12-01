@@ -63,6 +63,8 @@
     className: "okinawa-data",
     radius: 100000,
     zoom: 7
+  },{
+    zoom: 3.4
   }]
 
   var mymap = L.map('mapid').setView(getCoordinate(data[0].location),locationData[0].zoom);
@@ -83,7 +85,7 @@
     accessToken: 'pk.eyJ1IjoiYWxhaW5oYXJkeSIsImEiOiJjamEwdWVveXE4ZmUwMzNweTc3Y3M2YXAzIn0.AAD0RPr99q21ifRDZPQ9yw'
 }).addTo(mymap);
 
-  for(let i = 0; i < locationData.length; i++) {
+  for(let i = 0; i < locationData.length-1; i++) {
     L.circle(getCoordinate(data[i].location), {
       color: 'red',
       fillColor: '#f03',
@@ -241,6 +243,7 @@
   activateFunctions[6] = showLeyteGulf;
   activateFunctions[7] = showOpTenGo;
   activateFunctions[8] = showOkinawa;
+  activateFunctions[9] = showOverview;
 
   scroll.on('active', function(index){
     activateFunctions[index](index);
@@ -284,6 +287,10 @@
   }
   
   function showOkinawa(index) {
+    mymap.flyTo(getCoordinate(data[index].location),locationData[index].zoom);
+  }
+
+  function showOverview(index) {
     mymap.flyTo(getCoordinate(data[index].location),locationData[index].zoom);
   }
 
