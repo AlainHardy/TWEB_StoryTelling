@@ -1,6 +1,6 @@
 <% include ../partials/header.ejs %>
-<div id="infoPanel">
-  <button id="toggleInfoPanel" class="hidden"></button>
+<div id="infoPanel" class="hiddenInfo">
+  <button id="toggleInfoPanel" class="hidden unavailable"></button>
   <div id="infoBackground"></div>
   <div id="infoText">
   </div>
@@ -67,7 +67,7 @@
     zoom: 3.4
   }]
 
-  var mymap = L.map('mapid').setView(getCoordinate(data[0].location),locationData[0].zoom);
+  let mymap = L.map('mapid').setView(getCoordinate(data[0].location),locationData[0].zoom);
   mymap.touchZoom.disable();
   mymap.scrollWheelZoom.disable();
   mymap.doubleClickZoom.disable();
@@ -95,25 +95,36 @@
     }).addTo(mymap);
   }
 
-  let scrollingPosition;
+  let infoVisible = false;
+  let infoAvailable = false;
 
   function showInfo() {
-    var pnl = document.getElementById('infoPanel');
+    if(!infoAvailable) {
+      return;
+    }
+    
+    infoVisible = true;
     document.getElementById('toggleInfoPanel').classList.remove('hidden'); 
-    pnl.style.left = '0px';
+    document.getElementById('infoPanel').classList.remove('hiddenInfo');
     document.getElementById('toggleInfoPanel').onclick = hideInfo;
+    document.getElementById('toggleInfoPanel').textContent = "╳";
 
     document.getElementById('content').classList.add('stopScrolling');
   }
 
   function hideInfo() {
+    if(!infoAvailable) {
+      return;
+    }
+
+    infoVisible = false;
     document.getElementById('content').classList.remove('stopScrolling');
     window.scrollTo(0, sectionPositions[currentIndex]);
     
-    var pnl = document.getElementById('infoPanel');
-    document.getElementById('toggleInfoPanel').classList.add("hidden"); 
-    pnl.style.left = "100%";
+    document.getElementById('toggleInfoPanel').classList.add('hidden'); 
+    document.getElementById('infoPanel').classList.add('hiddenInfo');
     document.getElementById('toggleInfoPanel').onclick = showInfo;
+    document.getElementById('toggleInfoPanel').textContent = "";
   }
 
   function hideAllStep(except) {
@@ -126,7 +137,9 @@
   
   document.getElementById('toggleInfoPanel').onclick = showInfo;
   document.onkeypress = (e) => {
-    console.log(e.keyCode);
+    if(e.charCode !== 0 && e.charCode !== 32) {
+      return false;
+    }
 
     switch(e.keyCode) {
       // Left
@@ -169,6 +182,8 @@
       case 35:
         scrollToEnd();
         return false;
+      default:
+        return false;
     }
   };
 
@@ -178,9 +193,6 @@
   }
 
   function scrollToEnd() {
-    if (currentIndex >= data.length) {
-      return;
-    }
     let a = document.getElementById('outro').getBoundingClientRect();
     window.scrollTo(0, a.bottom - a.height * 0.5 + window.pageYOffset);
     currentIndex = data.length;
@@ -225,7 +237,13 @@
 
   window.addEventListener('resize', function() {
     resize(); 
-    window.scrollTo(0, sectionPositions[currentIndex]);   
+    if(currentIndex < 0) {
+      scrollToHome();
+    } else if(currentIndex >= data.length - 1) {
+      scrollToEnd();   
+    } else {
+      window.scrollTo(0, sectionPositions[currentIndex]);   
+    }
   });
 
   d3.select(window).on('scroll.scroller', position);
@@ -233,9 +251,16 @@
   let dispatch = d3.dispatch("active", "progress");
 
   function position() {
+    if(infoVisible) {
+      return;
+    }
+
     let bottomMargin = 50;
     let topMargin = 150;
     let screenTop = window.pageYOffset;
+    
+    document.getElementById('toggleInfoPanel').classList.add('unavailable');
+    infoAvailable = false;
     
     // Find which element's position is in the frame of a portion of the visible window
     let sectionIndex = sectionPositions.findIndex( (a) => {
@@ -245,20 +270,31 @@
     hideAllStep(sectionIndex);
 
     if (sectionIndex === -1) {
+      if(!infoVisible) {
+        if(document.getElementById('intro').getBoundingClientRect().bottom > screenTop) {
+          currentIndex = -1;
+        } else if (document.getElementById('outro').getBoundingClientRect().top < screenTop) {
+          currentIndex = data.length;
+        }
+      }
       return;
     }
 
-    //if(pos + window.innerHeight * 0.8 > sectionPositions[sectionIndex] && pos - window.innerHeight * .1 <= sectionPositions[sectionIndex]) {
     let opacity = 1 - (sectionPositions[sectionIndex] - screenTop - 1) / (window.innerHeight*0.8*0.9);
     sections._groups[0][sectionIndex].style.opacity = opacity;
-    //}
 
     let newIndexPos = sectionPositions[sectionIndex];
 
     // When the section is near the top in a define frame, trigger the event to move the map
-    if (currentIndex !== sectionIndex && newIndexPos > screenTop - topMargin && newIndexPos < screenTop + bottomMargin) {
-      dispatch.call('active', this, sectionIndex);
-      currentIndex = sectionIndex;
+    if(newIndexPos > screenTop - topMargin && newIndexPos < screenTop + bottomMargin) {
+
+      document.getElementById('toggleInfoPanel').classList.remove('unavailable');
+      infoAvailable = true;
+
+      if (currentIndex !== sectionIndex) {
+        dispatch.call('active', this, sectionIndex);
+        currentIndex = sectionIndex;
+      }
     }
   }
 
