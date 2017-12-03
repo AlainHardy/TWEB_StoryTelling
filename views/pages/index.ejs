@@ -62,7 +62,7 @@
     zoom: 6
   },{
     zoom: 4
-  }]
+  }];
 
   let mymap = L.map('mapid').setView(getCoordinate(data[data.length-1].location),locationData[data.length-1].zoom);
   mymap.touchZoom.disable();
@@ -218,14 +218,10 @@
 
     function getOrdinal(a) {
       switch (a%10) {
-        case 1:
-          return a + "st";
-        case 2:
-          return a + "nd";
-        case 3:
-          return a + "rd";
-        default:
-          return a + "th";
+        case 1: return a + "st";
+        case 2: return a + "nd";
+        case 3: return a + "rd";
+        default: return a + "th";
       }
     }
 
@@ -284,8 +280,8 @@
       return;
     }
 
-    let bottomMargin = 50;
-    let topMargin = 150;
+    let bottomMargin = 30;
+    let topMargin = 100;
     let screenTop = window.pageYOffset;
     
     document.getElementById('toggleInfoPanel').classList.add('unavailable');
@@ -296,12 +292,14 @@
     let sectionIndex = sectionPositions.findIndex( (a) => {
       return a > screenTop - window.innerHeight*0.11 && a < screenTop + window.innerHeight*0.81;
     });
-    console.log(sectionIndex);
+
     hideAllStep(sectionIndex);
 
     if (sectionIndex === -1) {
-      mymap.flyTo(getCoordinate(data[data.length-1].location), locationData[data.length-1].zoom);
-      currentIndex = -1;
+      if(currentIndex === -1) {
+        mymap.flyTo(getCoordinate(data[data.length-1].location), locationData[data.length-1].zoom);
+        currentIndex = -1;
+      }
       if(!infoVisible) {
         if(document.getElementById('intro').getBoundingClientRect().bottom > screenTop) {
           currentIndex = -1;
@@ -342,10 +340,16 @@
   
 
   mymap.on('moveend', function() {
-      if(currentIndex < 0 || currentIndex >= data.length - 1)
+      if(currentIndex < 0 || currentIndex >= data.length - 1) {
         return;
-
-      document.getElementsByClassName('redCircle')[currentIndex].classList.remove('hiddenCircle');
+      }
+        
+      if(document.getElementsByClassName('redCircle')[currentIndex].classList.contains('hiddenCircle')) {
+        document.getElementsByClassName('redCircle')[currentIndex].classList.remove('hiddenCircle');
+        setTimeout(() => {
+          showInfo();
+        }, 1000);
+      }      
   });
 
 
