@@ -29,42 +29,38 @@
   const data = <%- JSON.stringify(data) %>;
   const locationData = [{
     className: "pearlharbour-data",
-    radius: 10000,
+    radius: 20000,
     zoom: 8
   },{
     className: "coralsea-data",
-    radius: 500000,
+    radius: 400000,
     zoom: 5
   },{
     className: "midway-data",
-    radius: 1000000,
-    zoom: 4.5
+    radius: 250000,
+    zoom: 5
   },{
     className: "savoisland-data",
-    radius: 40000,
+    radius: 25000,
     zoom: 8
   },{
     className: "guadalcanal-data",
-    radius: 40000,
+    radius: 25000,
     zoom: 8
   },{
     className: "philippinesea-data",
-    radius: 300000,
+    radius: 200000,
     zoom: 6
   },{
     className: "leytegulf-data",
     radius: 200000,
-    zoom: 6.2
+    zoom: 6
   },{
     className: "tengo-data",
-    radius: 100000,
-    zoom: 6.5
+    radius: 200000,
+    zoom: 6
   },{
-    className: "okinawa-data",
-    radius: 100000,
-    zoom: 7
-  },{
-    zoom: 3.4
+    zoom: 4
   }]
 
   let mymap = L.map('mapid').setView(getCoordinate(data[data.length-1].location),locationData[data.length-1].zoom);
@@ -239,7 +235,7 @@
     resize(); 
     if(currentIndex < 0) {
       scrollToHome();
-    } else if(currentIndex >= data.length - 1) {
+    } else if(currentIndex >= data.length) {
       scrollToEnd();   
     } else {
       window.scrollTo(0, sectionPositions[currentIndex]);   

@@ -20,8 +20,8 @@ app.listen(app.get('port'), () => {
   datas.push({
     "name": "Overview",
     "location":{
-      "latitude":14.5615291,
-      "longitude":178.6969988
+      "latitude": 10.853564, 
+      "longitude": 155.142831
     }
   });
   console.log('Listen on port ', app.get('port'));
