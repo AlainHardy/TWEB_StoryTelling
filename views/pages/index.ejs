@@ -10,6 +10,7 @@
   <div id='mapid'></div>
 </div>
 <div id="content">
+  <div id="date" class="hiddenDate">Hello</div>
   <div id="intro">
 
   </div>
@@ -104,6 +105,8 @@
     document.getElementById('infoPanel').classList.remove('hiddenInfo');
     document.getElementById('toggleInfoPanel').onclick = hideInfo;
     document.getElementById('toggleInfoPanel').textContent = "╳";
+
+    document.getElementById('date').classList.add('hiddenDate');
 
     document.getElementById('content').classList.add('stopScrolling');
   }
@@ -208,6 +211,36 @@
     return [ltd, lng];
   }
 
+  function getDateString(dateStart, dateEnd) {
+    let start = new Date(dateStart);
+    let end = new Date(dateEnd);
+    const monthString = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    function getOrdinal(a) {
+      switch (a%10) {
+        case 1:
+          return a + "st";
+        case 2:
+          return a + "nd";
+        case 3:
+          return a + "rd";
+        default:
+          return a + "th";
+      }
+    }
+
+    if (start.getFullYear() === end.getFullYear()) {
+      if(start.getMonth() === end.getMonth()) {
+        if(start.getDate() === end.getDate()) {
+          return start.getFullYear() + " " + monthString[start.getMonth()] + " " + getOrdinal(start.getDate());
+        }
+        return start.getFullYear() + " " + monthString[start.getMonth()] + " " + getOrdinal(start.getDate()) + " - " + getOrdinal(end.getDate());
+      }
+      return start.getFullYear() + " " + monthString[start.getMonth()] + " " + getOrdinal(start.getDate()) + " - " + monthString[end.getMonth()] + " " +  getOrdinal(end.getDate());
+    }
+    return start.getFullYear() + " " + monthString[start.getMonth()] + " " + getOrdinal(start.getDate()) + " - " + end.getFullYear() + " " + monthString[end.getMonth()] + " " +  getOrdinal(end.getDate());
+  }
+
 
   //-A Start---------------------------------------------------------
   let sectionPositions = [];
@@ -257,6 +290,7 @@
     
     document.getElementById('toggleInfoPanel').classList.add('unavailable');
     infoAvailable = false;
+    document.getElementById('date').classList.add('hiddenDate');
     
     // Find which element's position is in the frame of a portion of the visible window
     let sectionIndex = sectionPositions.findIndex( (a) => {
@@ -288,6 +322,8 @@
 
       document.getElementById('toggleInfoPanel').classList.remove('unavailable');
       infoAvailable = true;
+      document.getElementById('date').classList.remove('hiddenDate');
+      document.getElementById('date').textContent = getDateString(data[sectionIndex].start,data[sectionIndex].end);
 
       if (currentIndex !== sectionIndex) {
         dispatch.call('active', this, sectionIndex);

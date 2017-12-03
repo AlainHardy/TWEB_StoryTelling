@@ -19,6 +19,8 @@ app.listen(app.get('port'), () => {
   datas = JSON.parse(fs.readFileSync('data/NavalWarfare.json', 'utf8'));
   datas.push({
     "name": "Overview",
+    "start": "1941-12-7",
+    "end": "1945-6-22",
     "location":{
       "latitude": 10.853564, 
       "longitude": 155.142831

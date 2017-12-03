@@ -85,6 +85,21 @@ button::-moz-focus-inner {
   overflow: hidden;
 }
 
+div#date {
+  position: fixed;
+  top: 5px;
+  right: 35px;
+  font-size: 20px;
+  font-family: 'Courier';
+  font-weight: bold;
+  transition: all .5s ease-out;
+  max-width: 35%;
+}
+
+div.hiddenDate {
+  top:-100px !important;
+}
+
 #intro {
   height: 200vh;
   z-index: 15;
@@ -109,6 +124,7 @@ button::-moz-focus-inner {
   font-family: 'Courier';
   font-size: 32px;
   font-weight: bold;
+  max-width: 60%;
 }
 
 .step {
