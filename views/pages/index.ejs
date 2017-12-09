@@ -64,7 +64,7 @@
     zoom: 4
   }];
 
-  let mymap = L.map('mapid').setView(getCoordinate(data[data.length-1].location),locationData[data.length-1].zoom);
+  const mymap = L.map('mapid').setView(getCoordinate(data[data.length-1].location),locationData[data.length-1].zoom);
   mymap.touchZoom.disable();
   mymap.scrollWheelZoom.disable();
   mymap.doubleClickZoom.disable();
@@ -216,25 +216,16 @@
     let end = new Date(dateEnd);
     const monthString = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    function getOrdinal(a) {
-      switch (a%10) {
-        case 1: return a + "st";
-        case 2: return a + "nd";
-        case 3: return a + "rd";
-        default: return a + "th";
-      }
-    }
-
     if (start.getFullYear() === end.getFullYear()) {
       if(start.getMonth() === end.getMonth()) {
         if(start.getDate() === end.getDate()) {
-          return start.getFullYear() + " " + monthString[start.getMonth()] + " " + getOrdinal(start.getDate());
+          return start.getDate() + " " + monthString[start.getMonth()] + " " + start.getFullYear();
         }
-        return start.getFullYear() + " " + monthString[start.getMonth()] + " " + getOrdinal(start.getDate()) + " - " + getOrdinal(end.getDate());
+        return start.getDate() + " - " + end.getDate() + " " + monthString[start.getMonth()] + " " + start.getFullYear();
       }
-      return start.getFullYear() + " " + monthString[start.getMonth()] + " " + getOrdinal(start.getDate()) + " - " + monthString[end.getMonth()] + " " +  getOrdinal(end.getDate());
+      return start.getDate() + " " + monthString[start.getMonth()] + " - " + end.getDate() + " " +  monthString[end.getMonth()] + " " + start.getFullYear();
     }
-    return start.getFullYear() + " " + monthString[start.getMonth()] + " " + getOrdinal(start.getDate()) + " - " + end.getFullYear() + " " + monthString[end.getMonth()] + " " +  getOrdinal(end.getDate());
+    return start.getDate() + " " + monthString[start.getMonth()] + " " + start.getFullYear() + " - " + end.getDate() + " " + monthString[end.getMonth()] + " " + end.getFullYear();
   }
 
 
