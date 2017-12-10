@@ -7,7 +7,6 @@
 		"longitude": -157.9748912
 	},
 	"data": {
-		"text": "The attack on Pearl Harbor was a surprise military strike by the Imperial Japanese Navy Air Service against the United 'state's naval base at Pearl Harbor, Hawaii Territory, on the morning of December 7, 1941. The attack, also known as the Battle of Pearl Harbor, led to the United ",
 		"jp": {
 			"fleet": [{
 				"CV": {
@@ -201,7 +200,6 @@
 		"longitude": 156.793380
 	},
 	"data": {
-		"text": "salut",
 		"jp": {
 			"fleet": [{
 				"CV": {
@@ -421,7 +419,6 @@
 		"longitude": -178.579375
 	},
 	"data": {
-		"text": "HEllo, I am the text",
 		"jp": {
 			"fleet": [{
 				"CV": {
@@ -567,7 +564,6 @@
 		"longitude": 159.8925993
 	},
 	"data": {
-		"text": "Coucou",
 		"jp": {
 			"fleet": [{
 				"CA": {
@@ -651,7 +647,6 @@
 		"longitude": 159.815622
 	},
 	"data": {
-		"text": "Guacamole !!",
 		"jp": {
 			"fleet": [{
 				"BB": {
@@ -773,7 +768,6 @@
 		"longitude": 139.1484716
 	},
 	"data": {
-		"text": "Hi, I am back, I am the text",
 		"jp": {
 			"fleet": [{
 				"CV": {
@@ -935,7 +929,6 @@
 		"longitude": 122.639577
 	},
 	"data": {
-		"text": "hello",
 		"jp": {
 			"fleet": [{
 				"CV": {
@@ -1121,7 +1114,6 @@
 		"longitude": 128.0941
 	},
 	"data": {
-		"text": "I'am back ... I am the text !!",
 		"jp": {
 			"fleet": [{
 				"BB": {
@@ -1176,8 +1168,52 @@
 			}]
 		},
 		"us": {
-			
+			"fleet": [{
+				"CV": {
+					"count": 11
+				}
+			},
+			{
+				"BB": {
+					"count": 6
+				}
+			},
+			{
+				"CA": {
+					"count": 4
+				}
+			},
+			{
+				"CL": {
+					"count": 7
+				}
+			},
+			{
+				"DD": {
+					"count": 30
+				}
+			}],
+			"losses": [{
+				"CV": {
+					"damaged": {
+						"count": 1
+					}
+				}
+			},
+			{
+				"BB": {
+					"damaged": {
+						"count": 2
+					}
+				}
+			},
+			{
+				"DD": {
+					"damaged": {
+						"count": 1
+					}
+				}
+			}]
 		}
 	}
-}
-]
+}]

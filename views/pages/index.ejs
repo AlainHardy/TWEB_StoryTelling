@@ -13,7 +13,7 @@
   <div id='mapid'></div>
 </div>
 <div id="content">
-  <div id="date" class="hiddenDate">Hello</div>
+  <div id="date" class="hiddenDate"></div>
   <div id="intro">
     <p id="introTitle">Pacific Ocean Theater</p>
     <div id="introContent">
@@ -33,13 +33,16 @@
       </div>
   </div>
   <div id="footer">
-    <div id="by">Developed by <a href="https://github.com/AlainHardy" target="_blank">Alain Hardy</a></div>
+      <div id="by"><a href="https://github.com/AlainHardy/TWEB_StoryTelling" target="_blank">Pacific Ocean Theater</a> by <a href="https://github.com/AlainHardy" target="_blank">Alain Hardy</a></div>
+      <div id="about">About</div>
   </div>
 </div>
 
 <script>
+  // Get the two JSON file of data
   const data = <%- JSON.stringify(data) %>;
   const text = <%- JSON.stringify(text) %>;
+  // Parameters for the red circle on the map and the zoom level for each section
   const locationData = [{
     className: "pearlharbour-data",
     radius: 20000,
@@ -80,6 +83,7 @@
     locationData[i].firstVisit = true;
   }
 
+  // Create the map object and disable all controls on it
   const mymap = L.map('mapid').setView(getCoordinate(data[data.length-1].location),locationData[data.length-1].zoom);
   mymap.touchZoom.disable();
   mymap.scrollWheelZoom.disable();
@@ -91,6 +95,7 @@
   document.getElementsByClassName('leaflet-control-zoom')[0].style.visibility = 'hidden';
   
 
+  // Get the map texture from mapbox
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 18,
@@ -98,6 +103,7 @@
     accessToken: 'pk.eyJ1IjoiYWxhaW5oYXJkeSIsImEiOiJjamEwdWVveXE4ZmUwMzNweTc3Y3M2YXAzIn0.AAD0RPr99q21ifRDZPQ9yw'
 }).addTo(mymap);
 
+  // Add the circles of the different location on the map
   for(let i = 0; i < locationData.length-1; i++) {
     L.circle(getCoordinate(data[i].location), {
       color: 'red',
@@ -108,9 +114,11 @@
     }).addTo(mymap);
   }
 
+  // Variable for the state of the infoPanel
   let infoVisible = false;
   let infoAvailable = false;
 
+  // Display the info panel
   function showInfo() {
     if(!infoAvailable) {
       return;
@@ -120,13 +128,14 @@
       locationData[currentIndex].firstVisit = false;
     }
 
+    // Get the text of the current section
     document.getElementById('textTitle').textContent = data[currentIndex].name;
     document.getElementById('textDate').textContent = getDateString(data[currentIndex].start, data[currentIndex].end);
     document.getElementById('textContent').innerHTML = text.battle[currentIndex].text;
+    // Define the height of the text content
     document.getElementById('textContent').style.height = window.innerHeight - document.getElementById('textTitle').clientHeight;
 
-
-    
+    // Change layout of the panel when expending it
     infoVisible = true;
     document.getElementById('toggleInfoPanel').classList.remove('hidden'); 
     document.getElementById('infoPanel').classList.remove('hiddenInfo');
@@ -135,32 +144,94 @@
 
     document.getElementById('date').classList.add('hiddenDate');
 
+    // Disable scrolling of the sections while the panel is out
     document.getElementById('content').classList.add('stopScrolling');
   }
 
+  // Hide the info panel
   function hideInfo() {
     if(!infoAvailable) {
       return;
     }
 
+    // Enable the scrolling of the sections and scroll to the previous section.
+    // When re enabling the scroller is a the top of the page
     infoVisible = false;
     document.getElementById('content').classList.remove('stopScrolling');
     window.scrollTo(0, sectionPositions[currentIndex]);
     
+    // Change the layout of the panel when hidding it
     document.getElementById('toggleInfoPanel').classList.add('hidden'); 
     document.getElementById('infoPanel').classList.add('hiddenInfo');
     document.getElementById('toggleInfoPanel').onclick = showInfo;
     document.getElementById('toggleInfoPanel').textContent = "";
   }
-
-  function showSource() {
-
-  }
-
+  
+  // Show the "about" information. Reuse the info panel
   function showAbout() {
+    if(currentIndex != data.length) {
+      return
+    }
+    // Set the text
+    document.getElementById('textTitle').textContent = "About";
+    document.getElementById('textDate').textContent = "";
+    document.getElementById('textContent').innerHTML = "<p>The data has been compiled by myself based on divers website. \
+      You can access to the file <a href=\"/data\" target=\"_blank\" class=\"sourceLink\">here</a>. Please note that it does not contain all naval battles of the Pacific Theater. \
+      <p>The collected informations and data used on the application have been found on the following website :</p>";
 
+    text.sources.forEach((e) => {
+      let str = `<p><a href="${e.link}" target="_blank" class="sourceLink">${e.text}</a></p>`;
+      document.getElementById('textContent').insertAdjacentHTML('beforeend', str);
+    });
+
+    // Resize the height of the text content
+    document.getElementById('textContent').style.height = window.innerHeight - document.getElementById('textTitle').clientHeight;
+
+    // Change the layout when expending the panel
+    document.getElementById('toggleInfoPanel').classList.remove('hidden'); 
+    document.getElementById('infoPanel').classList.remove('hiddenInfo');
+    document.getElementById('toggleInfoPanel').onclick = hideAbout;
+    document.getElementById('toggleInfoPanel').textContent = "╳";
+    document.getElementById('infoBackground').classList.add('aboutBackground');
+    
+    // Wait for the panel to be fully out, to stop the scrolling
+    // Otherwise display the map rather than having the outro section
+    setTimeout(() => {
+      document.getElementById('content').classList.add('stopScrolling');
+    },500);
+
+    // Wait the desactivation of the scrolling is done before display the close button
+    // Otherwise, when the scrolling of the position in the section will be computaded
+    // It will be on the top of the page and add the unvailable class on the button
+    setTimeout(() => {      
+      document.getElementById('toggleInfoPanel').classList.remove('unavailable');
+    },700);
+    
   }
 
+  // Hide the info panel
+  function hideAbout() {
+    if(currentIndex !== -1) {
+      return;
+    }
+
+    // Allow the scrolling of the sections and scroll till the end
+    document.getElementById('content').classList.remove('stopScrolling');
+    scrollToEnd();
+    
+    // Change layout when hidding the pannel
+    document.getElementById('toggleInfoPanel').classList.add('hidden'); 
+    document.getElementById('infoPanel').classList.add('hiddenInfo');
+    document.getElementById('toggleInfoPanel').onclick = showInfo;
+    document.getElementById('toggleInfoPanel').textContent = "";
+    document.getElementById('toggleInfoPanel').classList.add('unavailable');
+    document.getElementById('infoBackground').classList.remove('aboutBackground');
+  }
+
+  // On click on "about" at the bottom, show the panel with about informations
+  document.getElementById('about').onclick = showAbout;
+
+  // Hide all sections title
   function hideAllStep(except) {
     for(let i = 0; i < sections.size(); i++) {
       if(i !== except) {
@@ -170,6 +241,8 @@
   }
   
   document.getElementById('toggleInfoPanel').onclick = showInfo;
+
+  // Redefine behavior of keys
   document.onkeypress = (e) => {
     if(e.charCode !== 0 && e.charCode !== 32) {
       return false;
@@ -177,17 +250,17 @@
 
     switch(e.keyCode) {
       // Left
-      case 37:
+      case 37: // Show informations
         showInfo();
         return false;
       // Right
-      case 39:
+      case 39: // Hide informations
       // Esc
       case 27:
         hideInfo();
         return false;
       // Page Up
-      case 33:
+      case 33: // Scroll to the previous section
           if (currentIndex === 0) {
             scrollToHome();
           } else if (currentIndex >= data.length) {
@@ -197,9 +270,9 @@
           }
         return false;
       // Space
-      case 0:
+      case 0: // Scroll the to next section
       // Page Down
-      case 34:
+      case 34: 
         if (currentIndex < 0) {
           window.scrollTo(0, sectionPositions[0]);
         } else if (currentIndex >= data.length - 1) {
@@ -209,29 +282,32 @@
         }
         return false;
       // Home
-      case 36:
+      case 36: // Scroll the the top
         scrollToHome();
         return false;
       // End
-      case 35:
+      case 35: // Scroll to the end
         scrollToEnd();
         return false;
-      default:
+      default: // Disable all other keys
         return false;
     }
   };
 
+  // Scroll to the intro section
   function scrollToHome() {
     window.scrollTo(0, document.getElementById('intro').getBoundingClientRect().top);
     currentIndex = -1;
   }
 
+  // Scroll to the outro section
   function scrollToEnd() {
     let a = document.getElementById('outro').getBoundingClientRect();
     window.scrollTo(0, a.bottom - a.height * 0.5 + window.pageYOffset);
     currentIndex = data.length;
   }
 
+  // Return an array of cordinate with the longitude between 0 and 359
   function getCoordinate(location) {
     let ltd = location.latitude;
     let lng = location.longitude;
@@ -246,6 +322,7 @@
     return [ltd, lng];
   }
 
+  // Return the string in the format 
   function getDateString(dateStart, dateEnd) {
     let start = new Date(dateStart);
     let end = new Date(dateEnd);
@@ -263,13 +340,15 @@
     return start.getDate() + " " + monthString[start.getMonth()] + " " + start.getFullYear() + " - " + end.getDate() + " " + monthString[end.getMonth()] + " " + end.getFullYear();
   }
 
-
-  //-A Start---------------------------------------------------------
+  //=========================================================================
+  //=Scroller  Start=========================================================
+  //=========================================================================
   let sectionPositions = [];
   let sections = d3.selectAll('.step');
   let containerStart = [];
   let currentIndex = -1;
 
+  // Compute the position of each section on the window
   function resize() {
     let startPos;
 
@@ -286,6 +365,8 @@
   }
   resize();
 
+  // When the window resize, recompute the sections' position, send the user back to
+  // where he/she was. If the info panel was out, resize the text content
   window.addEventListener('resize', function() {
     resize(); 
     if(currentIndex < 0) {
@@ -300,19 +381,24 @@
     }
   });
 
+  // When scrolling call the position function
   d3.select(window).on('scroll.scroller', position);
 
   let dispatch = d3.dispatch("active", "progress");
 
+  // Control if there is a sections near the top and trigger the changes of location
   function position() {
     if(infoVisible) {
       return;
     }
 
+    // Frame of the detection of the sections
     let bottomMargin = 30;
     let topMargin = 100;
+    // Value of the top of the screen. How much did we scroll ?
     let screenTop = window.pageYOffset;
     
+    // Hide the button for info panel and the date
     document.getElementById('toggleInfoPanel').classList.add('unavailable');
     infoAvailable = false;
     document.getElementById('date').classList.add('hiddenDate');
@@ -324,6 +410,11 @@
 
     hideAllStep(sectionIndex);
 
+    // If there is no section near the top (-1), 
+    //    check if the current index is the one of the top, move the location on the map
+    // If the info panel is not being displayed, control if the current section is not the top or
+    //    the bottom, and change the current index in accordance
+    // Finally quit the function
     if (sectionIndex === -1) {
       if(currentIndex === -1) {
         mymap.flyTo(getCoordinate(data[data.length-1].location), locationData[data.length-1].zoom);
@@ -339,6 +430,7 @@
       return;
     }
 
+    // Change the opacity of the section coming closer to the top
     let opacity = 1 - (sectionPositions[sectionIndex] - screenTop - 1) / (window.innerHeight*0.8*0.9);
     sections._groups[0][sectionIndex].style.opacity = opacity;
 
@@ -347,14 +439,16 @@
     // When the section is near the top in a define frame, trigger the event to move the map
     if(newIndexPos > screenTop - topMargin && newIndexPos < screenTop + bottomMargin) {
 
+      // Display the button to show the info panel
       if(sectionIndex < data.length-1) {
         document.getElementById('toggleInfoPanel').classList.remove('unavailable');
         infoAvailable = true;
-     }
+      }
+      // Display the date of the section
       document.getElementById('date').classList.remove('hiddenDate');
       document.getElementById('date').textContent = getDateString(data[sectionIndex].start,data[sectionIndex].end);
       
-
+      // If the section has changed the trigger the movement on the map
       if (currentIndex !== sectionIndex) {
         dispatch.call('active', this, sectionIndex);
         currentIndex = sectionIndex;
@@ -362,15 +456,18 @@
     }
   }
 
+  // Bind an event to the action of scrolling on the window
   scroll.on = function (action, callback) {
     dispatch.on(action, callback);
   };
 
+  // Move in the map to a location
   scroll.on('active', function(index){
     mymap.flyTo(getCoordinate(data[index].location),locationData[index].zoom);
   });
   
-
+  // When the movement one the map has finished, if it is the first time arriving 
+  // at this location, the red circle appear and the show panel come out after a second
   mymap.on('moveend', function() {
       if(currentIndex < 0 || currentIndex >= data.length - 1) {
         return;
@@ -385,9 +482,9 @@
         }, 1000);
       }      
   });
-
-
-  //-A End-----------------------------------------------------------
+  //=========================================================================
+  //=Scroller End============================================================
+  //=========================================================================
 </script>
 
 
