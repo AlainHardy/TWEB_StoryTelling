@@ -58,12 +58,55 @@ button::-moz-focus-inner {
   width: 100%;
   height: 100%;
   background: linear-gradient(141deg,#0c0c0c 35%, #000000 70%);
-  opacity: .75;
+  opacity: .825;
 }
 
-#infoText{
+#infoText {
   position: absolute;
   opacity: 1;
+  margin: 0 5px 0 5px;
+  width: calc(100% - 10px);
+}
+
+#textTitle {
+  margin: 0;
+}
+
+#textDate {
+  margin: 0 0 0 5px;
+}
+
+#textDate {
+  right: 30px;
+  top: 5px;
+  max-width: 35%;
+  position: absolute;
+}
+
+div#textContent {
+  overflow-y: auto;
+  /*height: calc(100% - 80px);*/
+  height: 500px;
+}
+
+div#textContent p {
+  text-indent: 20px;
+}
+
+div#infoText, div#intro {
+  color: #b2caba;
+}
+
+div#intro, div#outro, div#textContent {
+  font-family: Palatino Linotype, Georgia, 'Times New Roman';
+  padding: 0 10px 0 10px;
+  text-align: justify;
+}
+
+div#outroText {
+  position: relative;  
+  top: 50%;  
+  padding-top: 1px;
 }
 
 #mapContainer
@@ -77,7 +120,7 @@ button::-moz-focus-inner {
 
 #mapid {
   width: 100%;
-  height:  100%;
+  height: 100%;
 }
 
 .stopScrolling {
@@ -86,34 +129,67 @@ button::-moz-focus-inner {
 }
 
 div#date {
-  position: fixed;
   top: 5px;
   right: 35px;
+  position: fixed;
+  transition: all .5s ease-out;
+  max-width: 35%;
+}
+
+div#date, .date {
   font-size: 20px;
   font-family: 'Courier';
   font-weight: bold;
-  transition: all .5s ease-out;
-  max-width: 35%;
 }
 
 div.hiddenDate {
   top:-100px !important;
 }
 
-#intro {
+div#intro {
   height: 200vh;
   z-index: 15;
-  background: linear-gradient( 180deg,#130000 50%, #73b6e6e6 90%, transparent 100%);
+  background: linear-gradient( 180deg,#090000  50%, #73b6e6e6 90%, transparent 100%);
+}
+div#intro div#introContent{
+  margin: 0 5px 0 5px;
+  width: calc(100% - 10px);
+}
+
+p#introTitle {
+  font-size: 35px;
+  font-family: 'Courier';
+  font-weight: bold; 
+  padding: 15px 0 25px 20px;
+  margin: 0;
 }
 
 #scroller {
-  margin: 5px;
+  margin: 0 5px 0 5px;
 }
 
 #outro {
   height: 200vh;
   z-index: 15;
   background: linear-gradient( 360deg, #fffff6 50% , #73b6e6e6 90%,transparent 100%);
+}
+
+#footer {
+  height: 25px;  
+  background-color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color:white
+}
+
+div#footer a, div#footer a:visited{
+  color:lightgrey;
+  text-decoration: none;
+}
+
+div#by {
+
 }
 
 .toScroll {

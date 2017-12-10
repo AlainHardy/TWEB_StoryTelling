@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 let datas = [];
+let texts = [];
 
 const app = express();
 
@@ -12,19 +13,21 @@ app.set('port', (process.env.PORT) || 3000);
 app.use(express.static(path.join(__dirname, '/static')));
 
 app.get('/', (req, res) => {
-  res.render('pages/index', { title: 'Pacific Ocean Theater', data: datas });
+  res.render('pages/index', { title: 'Pacific Ocean Theater', data: datas, text: texts });
 });
 
 app.listen(app.get('port'), () => {
   datas = JSON.parse(fs.readFileSync('data/NavalWarfare.json', 'utf8'));
+  texts = JSON.parse(fs.readFileSync('data/texts.json', 'utf8'));
+  /* eslint quote-props:"off", quotes: off */
   datas.push({
     "name": "Overview",
     "start": "1941-12-7",
     "end": "1945-6-22",
-    "location":{
-      "latitude": 10.853564, 
-      "longitude": 155.142831
-    }
+    "location": {
+      "latitude": 10.853564,
+      "longitude": 155.142831,
+    },
   });
   console.log('Listen on port ', app.get('port'));
 });

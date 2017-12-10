@@ -3,6 +3,9 @@
   <button id="toggleInfoPanel" class="hidden unavailable"></button>
   <div id="infoBackground"></div>
   <div id="infoText">
+    <p id="textTitle" class="title"></p>
+    <p id="textDate" class="date"></p>
+    <div id="textContent"></div>
   </div>
 </div>
 
@@ -12,7 +15,10 @@
 <div id="content">
   <div id="date" class="hiddenDate">Hello</div>
   <div id="intro">
-
+    <p id="introTitle">Pacific Ocean Theater</p>
+    <div id="introContent">
+      <%- text.intro %>
+    </div>
   </div>
   <div id="scroller">
     <% var i; for(i = 0; i < data.length; i++) { %>
@@ -22,12 +28,18 @@
     %>
   </div>
   <div id="outro">
-
+    <div id="outroText">
+        <%- text.outro %>
+      </div>
+  </div>
+  <div id="footer">
+    <div id="by">Developed by <a href="https://github.com/AlainHardy" target="_blank">Alain Hardy</a></div>
   </div>
 </div>
 
 <script>
   const data = <%- JSON.stringify(data) %>;
+  const text = <%- JSON.stringify(text) %>;
   const locationData = [{
     className: "pearlharbour-data",
     radius: 20000,
@@ -42,11 +54,11 @@
     zoom: 5
   },{
     className: "savoisland-data",
-    radius: 25000,
+    radius: 20000,
     zoom: 8
   },{
     className: "guadalcanal-data",
-    radius: 25000,
+    radius: 30000,
     zoom: 8
   },{
     className: "philippinesea-data",
@@ -54,7 +66,7 @@
     zoom: 6
   },{
     className: "leytegulf-data",
-    radius: 200000,
+    radius: 600000,
     zoom: 6
   },{
     className: "tengo-data",
@@ -63,6 +75,10 @@
   },{
     zoom: 4
   }];
+
+  for(let i = 0; i < locationData.length - 1; i++) {
+    locationData[i].firstVisit = true;
+  }
 
   const mymap = L.map('mapid').setView(getCoordinate(data[data.length-1].location),locationData[data.length-1].zoom);
   mymap.touchZoom.disable();
@@ -99,6 +115,17 @@
     if(!infoAvailable) {
       return;
     }
+
+    if(locationData[currentIndex].firstVisit) {
+      locationData[currentIndex].firstVisit = false;
+    }
+
+    document.getElementById('textTitle').textContent = data[currentIndex].name;
+    document.getElementById('textDate').textContent = getDateString(data[currentIndex].start, data[currentIndex].end);
+    document.getElementById('textContent').innerHTML = text.battle[currentIndex].text;
+    document.getElementById('textContent').style.height = window.innerHeight - document.getElementById('textTitle').clientHeight;
+
+
     
     infoVisible = true;
     document.getElementById('toggleInfoPanel').classList.remove('hidden'); 
@@ -124,6 +151,14 @@
     document.getElementById('infoPanel').classList.add('hiddenInfo');
     document.getElementById('toggleInfoPanel').onclick = showInfo;
     document.getElementById('toggleInfoPanel').textContent = "";
+  }
+
+  function showSource() {
+
+  }
+
+  function showAbout() {
+
   }
 
   function hideAllStep(except) {
@@ -260,6 +295,9 @@
     } else {
       window.scrollTo(0, sectionPositions[currentIndex]);   
     }
+    if(infoVisible) {
+      document.getElementById('textContent').style.height = window.innerHeight - document.getElementById('textTitle').clientHeight;
+    }
   });
 
   d3.select(window).on('scroll.scroller', position);
@@ -309,10 +347,13 @@
     // When the section is near the top in a define frame, trigger the event to move the map
     if(newIndexPos > screenTop - topMargin && newIndexPos < screenTop + bottomMargin) {
 
-      document.getElementById('toggleInfoPanel').classList.remove('unavailable');
-      infoAvailable = true;
+      if(sectionIndex < data.length-1) {
+        document.getElementById('toggleInfoPanel').classList.remove('unavailable');
+        infoAvailable = true;
+     }
       document.getElementById('date').classList.remove('hiddenDate');
       document.getElementById('date').textContent = getDateString(data[sectionIndex].start,data[sectionIndex].end);
+      
 
       if (currentIndex !== sectionIndex) {
         dispatch.call('active', this, sectionIndex);
@@ -338,7 +379,9 @@
       if(document.getElementsByClassName('redCircle')[currentIndex].classList.contains('hiddenCircle')) {
         document.getElementsByClassName('redCircle')[currentIndex].classList.remove('hiddenCircle');
         setTimeout(() => {
-          showInfo();
+          if(locationData[currentIndex].firstVisit) {
+            showInfo();
+          }
         }, 1000);
       }      
   });
